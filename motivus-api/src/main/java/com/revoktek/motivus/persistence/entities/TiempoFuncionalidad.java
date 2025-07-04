@@ -40,7 +40,6 @@ public class TiempoFuncionalidad {
     @Column(name = "fecha_salida")
     private LocalDateTime fechaSalida;
 
-    // Campos generados, opcionales si no necesitas consultar directamente
     @Column(name = "duracion_horas", insertable = false, updatable = false)
     private Integer duracionHoras;
 

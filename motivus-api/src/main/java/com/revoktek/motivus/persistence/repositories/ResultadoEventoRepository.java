@@ -54,4 +54,5 @@ public interface ResultadoEventoRepository extends JpaRepository<ResultadoEvento
     );
 
 
+    ResultadoEvento findByClave(String clave);
 }

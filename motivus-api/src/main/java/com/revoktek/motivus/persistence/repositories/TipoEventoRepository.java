@@ -58,4 +58,6 @@ public interface TipoEventoRepository extends JpaRepository<TipoEvento, Long> {
             """)
     List<PromedioRespuestaDTO> findAllWithAverageResponse(@Param("fechaInicio") LocalDateTime fechaInicio,
                                                           @Param("fechaFin") LocalDateTime fechaFin);
+
+    TipoEvento findByClave(String clave);
 }
