@@ -1,0 +1,1 @@
+ALTER TABLE motivus.tiempo_funcionalidad MODIFY COLUMN evento_biometrico_id bigint NULL;
