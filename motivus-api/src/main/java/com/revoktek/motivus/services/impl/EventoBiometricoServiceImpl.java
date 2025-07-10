@@ -117,14 +117,14 @@ public class EventoBiometricoServiceImpl implements EventoBiometricoService {
             log.info("Datos front save.saveEventoDTO : {}", applicationUtil.toJson(saveEventoDTO));
 
             Usuario usuario = usuarioRepository.findByUsuario(saveEventoDTO.getUsuario());
-            if(usuario == null) {
+            if (usuario == null) {
                 usuario = new Usuario();
                 usuario.setUsuario(saveEventoDTO.getUsuario());
                 usuarioRepository.save(usuario);
             }
 
-            if(applicationUtil.nonEmptyList(saveEventoDTO.getFuncionalidades())) {
-                for (SaveFuncionalidadDTO funcionalidadDTO: saveEventoDTO.getFuncionalidades()) {
+            if (applicationUtil.nonEmptyList(saveEventoDTO.getFuncionalidades())) {
+                for (SaveFuncionalidadDTO funcionalidadDTO : saveEventoDTO.getFuncionalidades()) {
                     TiempoFuncionalidad funcionalidad = new TiempoFuncionalidad();
                     funcionalidad.setFuncionalidad(funcionalidadDTO.getFuncionalidad());
                     funcionalidad.setFechaEntrada(funcionalidadDTO.getFechaEntrada());
@@ -132,16 +132,16 @@ public class EventoBiometricoServiceImpl implements EventoBiometricoService {
                     funcionalidad.setUsuario(usuario);
                     tiempoFuncionalidadRepository.save(funcionalidad);
 
-                    if(funcionalidadDTO.getEventoBiometrico() != null) {
+                    if (funcionalidadDTO.getEventoBiometrico() != null) {
                         EventoBiometricoDTO eventoDTO = funcionalidadDTO.getEventoBiometrico();
                         EventoBiometrico evento = new EventoBiometrico();
 
-                        if(eventoDTO.getTipoEvento() != null && eventoDTO.getTipoEvento().getClave() != null) {
+                        if (eventoDTO.getTipoEvento() != null && eventoDTO.getTipoEvento().getClave() != null) {
                             TipoEvento tipoEvento = tipoEventoRepository.findByClave(eventoDTO.getTipoEvento().getClave());
                             evento.setTipoEvento(tipoEvento);
                         }
 
-                        if(eventoDTO.getResultadoEvento() != null && eventoDTO.getResultadoEvento().getClave() != null) {
+                        if (eventoDTO.getResultadoEvento() != null && eventoDTO.getResultadoEvento().getClave() != null) {
                             ResultadoEvento resultadoEvento = resultadoEventoRepository.findByClave(eventoDTO.getResultadoEvento().getClave());
                             evento.setResultadoEvento(resultadoEvento);
                         }

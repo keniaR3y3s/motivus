@@ -38,6 +38,7 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleOtherExceptions(Exception ex) {
+        System.out.println(ex.getMessage());
         return ResponseEntity.internalServerError().body(getMessage(null, messageProvider.getUnhandledError()));
     }
 

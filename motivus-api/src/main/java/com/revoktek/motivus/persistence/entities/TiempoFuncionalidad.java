@@ -54,7 +54,7 @@ public class TiempoFuncionalidad {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "evento_biometrico_id", nullable = false)
+    @JoinColumn(name = "evento_biometrico_id")
     private EventoBiometrico eventoBiometrico;
 
 }
