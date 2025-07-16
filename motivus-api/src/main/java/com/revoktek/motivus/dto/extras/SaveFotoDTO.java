@@ -2,7 +2,6 @@ package com.revoktek.motivus.dto.extras;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.revoktek.motivus.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +18,5 @@ public class SaveFotoDTO {
 
     private String imagenBase64;
     private String tipo;
-    private String funcionalidad;
     private String usuario;
 }

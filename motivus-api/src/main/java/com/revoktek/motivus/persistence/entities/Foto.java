@@ -21,23 +21,20 @@ public class Foto {
     @Column(name = "id_foto")
     private Long idFoto;
 
-    @Lob
-    @Column(name = "imagen", nullable = false, columnDefinition = "LONGBLOB")
-    private byte[] imagen;
+    @Column(name = "imagen")
+    private String imagen;
 
-    @Column(name = "tipo", length = 10, nullable = false)
+    @Column(name = "tipo")
     private String tipo;
 
-    @Column(name = "funcionalidad", length = 50)
-    private String funcionalidad;
 
-    @Column(name = "fecha_captura", nullable = false)
+    @Column(name = "fecha_captura")
     private LocalDateTime fechaCaptura = LocalDateTime.now();
 
     @Column(name = "activo")
     private Boolean activo = true;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 }

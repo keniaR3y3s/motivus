@@ -13,30 +13,38 @@ import com.revoktek.motivus.services.FotoService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 
 
 @Slf4j
 @Service
-@AllArgsConstructor
 public class FotoServiceImpl implements FotoService {
 
-    private final FotoRepository fotoRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final ApplicationUtil applicationUtil;
-    private final MessageProvider messageProvider;
+    @Autowired
+    private FotoRepository fotoRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private MessageProvider messageProvider;
 
+    @Value("${app.imagenes.directorio-base}")
+    private String directorioBase;
 
     @Override
     @Transactional
     public void save(SaveFotoDTO dto) throws BusinessException {
         try {
-
-            log.info("Datos front save.saveFotoDTO : {}", applicationUtil.toJson(dto));
 
             Usuario usuario = usuarioRepository.findByUsuario(dto.getUsuario());
             if (usuario == null) {
@@ -46,7 +54,7 @@ public class FotoServiceImpl implements FotoService {
             }
 
             String TIPO_HISTORIAL = "Historial";
-            String FUNCIONALIDAD_REGISTRO = "Registro";
+            String tipo = dto.getTipo() == null ? TIPO_HISTORIAL : dto.getTipo();
 
             byte[] imagenBytes;
             try {
@@ -55,15 +63,30 @@ public class FotoServiceImpl implements FotoService {
                 throw new BusinessException("La imagen no está correctamente codificada.");
             }
 
+            Path carpetaUsuario = Paths.get(directorioBase, usuario.getUsuario());
+            if (!Files.exists(carpetaUsuario)) {
+                Files.createDirectories(carpetaUsuario);
+            }
+
+            String extension = "jpg";
+
+            String fechaStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String nombreArchivo = usuario.getUsuario() + "_" + tipo.toLowerCase() + "_" + fechaStr + "." + extension;
+
+            Path archivoImagen = carpetaUsuario.resolve(nombreArchivo);
+
+            Files.write(archivoImagen, imagenBytes);
+
+            String rutaRelativa = usuario.getUsuario() + "/" + nombreArchivo;
+
             Foto foto = new Foto();
-            foto.setImagen(imagenBytes);
-            foto.setTipo(dto.getTipo() == null ? TIPO_HISTORIAL : dto.getTipo());
-            foto.setFuncionalidad(dto.getFuncionalidad() == null ? FUNCIONALIDAD_REGISTRO : dto.getFuncionalidad());
+            foto.setImagen(rutaRelativa);
+            foto.setTipo(tipo);
             foto.setFechaCaptura(LocalDateTime.now());
             foto.setActivo(true);
             foto.setUsuario(usuario);
 
-            List<Foto> principales = fotoRepository.findAllByTipoAndActivoAndFuncionalidadAndUsuario(foto.getTipo(), foto.getActivo(), foto.getFuncionalidad(), usuario);
+            List<Foto> principales = fotoRepository.findAllByTipoAndActivoAndUsuario(foto.getTipo(), foto.getActivo(), usuario);
             if (principales != null && !principales.isEmpty()) {
                 for (Foto principal : principales) {
                     principal.setActivo(false);
@@ -73,13 +96,16 @@ public class FotoServiceImpl implements FotoService {
 
             fotoRepository.save(foto);
 
-
         } catch (BusinessException e) {
             log.warn(messageProvider.getBusinessWarningConsole(e.getMessage()));
             throw e;
+        } catch (IOException e) {
+            log.error("Error guardando la imagen en disco: " + e.getMessage(), e);
+            throw new InternalServerException("Error guardando la imagen.");
         } catch (Exception e) {
             log.error(messageProvider.getUnexpectedErrorConsole(this.getClass().getSimpleName(), e.getMessage()), e);
             throw new InternalServerException(e);
         }
     }
+
 }
