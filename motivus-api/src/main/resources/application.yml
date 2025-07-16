@@ -17,4 +17,4 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQLDialect
 app:
   imagenes:
-    directorio-base: D:/tmp/motivus/
+    directorio-base: C:/Aplicaciones/Motivus/Storage/
