@@ -115,4 +115,10 @@ public class MainController {
     public ResponseEntity<?> tiempoRespuestaPromedio(@RequestBody Map<String, Object> params) {
         return ResponseEntity.ok(reportService.tiempoRespuestaPromedio(params));
     }
+
+    @PostMapping("/funcionalidades-estado")
+    public ResponseEntity<?> listarFuncionalidadesEstado(@RequestBody(required = false) Map<String, Object> params) {
+        return ResponseEntity.ok(reportService.listarFuncionalidadesEstado(params));
+    }
+
 }

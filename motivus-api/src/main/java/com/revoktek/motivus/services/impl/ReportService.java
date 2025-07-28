@@ -5,6 +5,7 @@ import com.revoktek.motivus.services.DynamicQueryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -12,6 +13,7 @@ import java.util.Map;
 public class ReportService {
 
     private final DynamicQueryService queryService;
+    private final NominatimService nominatimService;
 
     private String buildDateRangeFilter(Map<String, Object> params, String fieldName) {
         boolean hasStart = params.get("fechaInicio") != null;
@@ -247,6 +249,37 @@ public class ReportService {
         sql.append(buildDateRangeFilter(params, "e.fecha_hora_dia"));
         sql.append(" GROUP BY tipo_evento.clave ");
         return queryService.executeDynamicQuery(sql.toString(), params);
+    }
+
+    public Object listarFuncionalidadesEstado(Map<String, Object> params) {
+        StringBuilder sql = new StringBuilder("SELECT ");
+        sql.append(" te.id_tipo_evento, ");
+        sql.append(" te.clave, ");
+        sql.append(" te.detalle, ");
+        sql.append(" te.metodo, ");
+        sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 1 THEN 1 END) AS total_exito, ");
+        sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 2 THEN 1 END) AS total_fallido, ");
+        sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 3 THEN 1 END) AS total_cancelado, ");
+        sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 4 THEN 1 END) AS total_error, ");
+        sql.append(" GROUP_CONCAT(DISTINCT CASE WHEN TRIM(eb.gps) <> '0,0' THEN TRIM(eb.gps) END SEPARATOR '|') AS estados ");
+        sql.append(" FROM tipo_evento te ");
+        sql.append(" LEFT JOIN evento_biometrico eb ON te.id_tipo_evento = eb.tipo_evento_id ");
+        sql.append(" WHERE 1=1 ");
+        sql.append(buildDateRangeFilter(params, "eb.fecha_hora_dia")); // si usas filtro de fecha, aplicado a evento_biometrico
+        sql.append(" GROUP BY te.id_tipo_evento ");
+        sql.append(" ORDER BY te.id_tipo_evento ASC ");
+        List<Map<String, Object>> result = queryService.executeDynamicQuery(sql.toString(), params);
+
+        try {
+            for (Map<String, Object> row : result) {
+                String estados = (String) row.get("estados");
+                row.put("estados", nominatimService.getFederalEntity(estados));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
     }
 }
 
