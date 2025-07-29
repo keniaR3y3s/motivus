@@ -54,6 +54,9 @@ public class EventoBiometrico {
     @Column(name = "resultado_descripcion", length = 10000)
     private String resultadoDescripcion;
 
+    @Column(name = "entidad_federativa")
+    private String entidadFederativa;
+
     private Integer tiempoRespuestaMs;
     private Integer tiempoProcesoMs;
 

@@ -27,6 +27,7 @@ public class EventoBiometricoDTO {
     private String versionAndroidDispositivo;
     private String dispositivo;
     private String gps;
+    private String entidadFederativa;
     private String resultadoDescripcion;
     private Integer tiempoRespuestaMs;
     private Integer tiempoProcesoMs;

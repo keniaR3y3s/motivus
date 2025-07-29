@@ -38,9 +38,13 @@ public class EventoBiometricoServiceImpl implements EventoBiometricoService {
 
     private final TiempoFuncionalidadRepository tiempoFuncionalidadRepository;
     private final EventoBiometricoRepository eventoBiometricoRepository;
-    private final UsuarioRepository usuarioRepository;
     private final ResultadoEventoRepository resultadoEventoRepository;
     private final TipoEventoRepository tipoEventoRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    private NominatimService nominatimService;
+
+
     private final ApplicationUtil applicationUtil;
     private final MessageProvider messageProvider;
     private final AppMapper appMapper;
@@ -152,6 +156,7 @@ public class EventoBiometricoServiceImpl implements EventoBiometricoService {
                         evento.setVersionAndroidDispositivo(saveEventoDTO.getVersionAndroidDispositivo());
                         evento.setDispositivo(saveEventoDTO.getDispositivo());
                         evento.setGps(eventoDTO.getGps());
+                        evento.setEntidadFederativa(nominatimService.getFederalEntityName(eventoDTO.getGps()));
                         evento.setResultadoDescripcion(eventoDTO.getResultadoDescripcion());
                         evento.setTiempoRespuestaMs(eventoDTO.getTiempoRespuestaMs());
                         evento.setTiempoProcesoMs(eventoDTO.getTiempoProcesoMs());

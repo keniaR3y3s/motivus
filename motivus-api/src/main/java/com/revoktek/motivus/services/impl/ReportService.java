@@ -5,6 +5,9 @@ import com.revoktek.motivus.services.DynamicQueryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,9 @@ public class ReportService {
     private final NominatimService nominatimService;
 
     private String buildDateRangeFilter(Map<String, Object> params, String fieldName) {
+        if(params == null) {
+            return "";
+        }
         boolean hasStart = params.get("fechaInicio") != null;
         boolean hasEnd = params.get("fechaFin") != null;
 
@@ -261,11 +267,11 @@ public class ReportService {
         sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 2 THEN 1 END) AS total_fallido, ");
         sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 3 THEN 1 END) AS total_cancelado, ");
         sql.append(" COUNT(CASE WHEN eb.resultado_evento_id = 4 THEN 1 END) AS total_error, ");
-        sql.append(" GROUP_CONCAT(DISTINCT CASE WHEN TRIM(eb.gps) <> '0,0' THEN TRIM(eb.gps) END SEPARATOR '|') AS estados ");
+        sql.append(" GROUP_CONCAT(DISTINCT CASE WHEN TRIM(eb.entidad_federativa) IS NOT NULL AND TRIM(eb.entidad_federativa) <> '' THEN TRIM(eb.entidad_federativa) END SEPARATOR '|') AS estados ");
         sql.append(" FROM tipo_evento te ");
         sql.append(" LEFT JOIN evento_biometrico eb ON te.id_tipo_evento = eb.tipo_evento_id ");
         sql.append(" WHERE 1=1 ");
-        sql.append(buildDateRangeFilter(params, "eb.fecha_hora_dia")); // si usas filtro de fecha, aplicado a evento_biometrico
+        sql.append(buildDateRangeFilter(params, "eb.fecha_hora_dia"));
         sql.append(" GROUP BY te.id_tipo_evento ");
         sql.append(" ORDER BY te.id_tipo_evento ASC ");
         List<Map<String, Object>> result = queryService.executeDynamicQuery(sql.toString(), params);
@@ -273,7 +279,12 @@ public class ReportService {
         try {
             for (Map<String, Object> row : result) {
                 String estados = (String) row.get("estados");
-                row.put("estados", nominatimService.getFederalEntity(estados));
+                if (estados != null && !estados.trim().isEmpty()) {
+                    List<String> federalEntities = Arrays.asList(estados.split("\\|"));
+                    row.put("estados", federalEntities);
+                } else {
+                    row.put("estados", Collections.emptyList());
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

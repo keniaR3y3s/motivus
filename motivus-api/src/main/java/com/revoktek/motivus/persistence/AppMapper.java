@@ -23,6 +23,7 @@ public class AppMapper {
         dto.setPorcentaje(entity.getPorcentaje());
         dto.setVersionAndroidDispositivo(entity.getVersionAndroidDispositivo());
         dto.setGps(entity.getGps());
+        dto.setEntidadFederativa(entity.getEntidadFederativa());
         dto.setResultadoDescripcion(entity.getResultadoDescripcion());
         dto.setTiempoRespuestaMs(entity.getTiempoRespuestaMs());
         dto.setTiempoProcesoMs(entity.getTiempoProcesoMs());

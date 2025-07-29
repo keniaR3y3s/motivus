@@ -48,6 +48,32 @@ public class NominatimService {
         return new ArrayList<>(resultSet);
     }
 
+    public String getFederalEntityName(String gps) {
+        if (gps == null || gps.trim().isEmpty()) {
+            return null;
+        }
+
+        String[] latLon = gps.trim().split(",");
+        if (latLon.length != 2) {
+            return null;
+        }
+        try {
+            double lat = Double.parseDouble(latLon[0].trim());
+            double lon = Double.parseDouble(latLon[1].trim());
+            String federalEntity = getRequest(lat, lon);
+            if (federalEntity != null && !federalEntity.trim().isEmpty()) {
+               return federalEntity;
+            }
+        } catch (NumberFormatException nfe) {
+            System.err.println("Coordenada inválida: '" + gps + "' - " + nfe.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error al obtener entidad federativa para: '" + gps + "' - " + e.getMessage());
+        }
+
+
+        return null;
+    }
+
 
     private String getRequest(double lat, double lon) {
         try {
