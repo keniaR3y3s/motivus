@@ -5,7 +5,6 @@ import com.revoktek.motivus.services.DynamicQueryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Map;
 public class ReportService {
 
     private final DynamicQueryService queryService;
-    private final NominatimService nominatimService;
+    private final GpsService gpsService;
 
     private String buildDateRangeFilter(Map<String, Object> params, String fieldName) {
         if(params == null) {

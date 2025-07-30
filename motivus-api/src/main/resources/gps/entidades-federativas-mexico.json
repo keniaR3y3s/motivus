@@ -1,0 +1,226 @@
+[
+  {
+    "nombre": "Aguascalientes",
+    "latMin": 21.5,
+    "latMax": 22.4,
+    "lonMin": -102.9,
+    "lonMax": -101.8
+  },
+  {
+    "nombre": "Baja California",
+    "latMin": 28.0,
+    "latMax": 32.7,
+    "lonMin": -115.8,
+    "lonMax": -113.1
+  },
+  {
+    "nombre": "Baja California Sur",
+    "latMin": 22.5,
+    "latMax": 28.5,
+    "lonMin": -114.5,
+    "lonMax": -109.4
+  },
+  {
+    "nombre": "Campeche",
+    "latMin": 17.8,
+    "latMax": 20.1,
+    "lonMin": -91.9,
+    "lonMax": -88.6
+  },
+  {
+    "nombre": "Chiapas",
+    "latMin": 14.5,
+    "latMax": 17.0,
+    "lonMin": -94.3,
+    "lonMax": -90.4
+  },
+  {
+    "nombre": "Chihuahua",
+    "latMin": 25.0,
+    "latMax": 31.9,
+    "lonMin": -109.1,
+    "lonMax": -103.2
+  },
+  {
+    "nombre": "Ciudad de México",
+    "latMin": 19.2,
+    "latMax": 19.6,
+    "lonMin": -99.3,
+    "lonMax": -98.9
+  },
+  {
+    "nombre": "Coahuila",
+    "latMin": 24.2,
+    "latMax": 29.4,
+    "lonMin": -103.9,
+    "lonMax": -99.9
+  },
+  {
+    "nombre": "Colima",
+    "latMin": 18.6,
+    "latMax": 19.5,
+    "lonMin": -104.6,
+    "lonMax": -103.5
+  },
+  {
+    "nombre": "Durango",
+    "latMin": 22.2,
+    "latMax": 27.9,
+    "lonMin": -107.7,
+    "lonMax": -102.4
+  },
+  {
+    "nombre": "Estado de México",
+    "latMin": 18.7,
+    "latMax": 20.5,
+    "lonMin": -100.2,
+    "lonMax": -98.3
+  },
+  {
+    "nombre": "Guanajuato",
+    "latMin": 20.1,
+    "latMax": 21.8,
+    "lonMin": -101.8,
+    "lonMax": -99.5
+  },
+  {
+    "nombre": "Guerrero",
+    "latMin": 16.0,
+    "latMax": 18.5,
+    "lonMin": -101.5,
+    "lonMax": -98.4
+  },
+  {
+    "nombre": "Hidalgo",
+    "latMin": 19.4,
+    "latMax": 21.2,
+    "lonMin": -99.8,
+    "lonMax": -97.9
+  },
+  {
+    "nombre": "Jalisco",
+    "latMin": 18.9,
+    "latMax": 22.2,
+    "lonMin": -105.6,
+    "lonMax": -101.4
+  },
+  {
+    "nombre": "Michoacán",
+    "latMin": 17.9,
+    "latMax": 20.5,
+    "lonMin": -103.3,
+    "lonMax": -100.2
+  },
+  {
+    "nombre": "Morelos",
+    "latMin": 18.4,
+    "latMax": 19.2,
+    "lonMin": -99.4,
+    "lonMax": -98.8
+  },
+  {
+    "nombre": "Nayarit",
+    "latMin": 20.5,
+    "latMax": 23.0,
+    "lonMin": -105.6,
+    "lonMax": -103.5
+  },
+  {
+    "nombre": "Nuevo León",
+    "latMin": 23.2,
+    "latMax": 27.6,
+    "lonMin": -101.6,
+    "lonMax": -98.5
+  },
+  {
+    "nombre": "Oaxaca",
+    "latMin": 15.6,
+    "latMax": 18.2,
+    "lonMin": -98.7,
+    "lonMax": -93.9
+  },
+  {
+    "nombre": "Puebla",
+    "latMin": 18.2,
+    "latMax": 20.1,
+    "lonMin": -98.6,
+    "lonMax": -96.7
+  },
+  {
+    "nombre": "Querétaro",
+    "latMin": 20.1,
+    "latMax": 21.6,
+    "lonMin": -100.8,
+    "lonMax": -99.2
+  },
+  {
+    "nombre": "Quintana Roo",
+    "latMin": 18.5,
+    "latMax": 21.8,
+    "lonMin": -89.5,
+    "lonMax": -86.7
+  },
+  {
+    "nombre": "San Luis Potosí",
+    "latMin": 21.1,
+    "latMax": 24.5,
+    "lonMin": -101.5,
+    "lonMax": -98.3
+  },
+  {
+    "nombre": "Sinaloa",
+    "latMin": 22.2,
+    "latMax": 26.6,
+    "lonMin": -109.0,
+    "lonMax": -105.5
+  },
+  {
+    "nombre": "Sonora",
+    "latMin": 26.0,
+    "latMax": 32.5,
+    "lonMin": -114.8,
+    "lonMax": -108.8
+  },
+  {
+    "nombre": "Tabasco",
+    "latMin": 17.0,
+    "latMax": 18.4,
+    "lonMin": -94.2,
+    "lonMax": -91.0
+  },
+  {
+    "nombre": "Tamaulipas",
+    "latMin": 22.2,
+    "latMax": 27.7,
+    "lonMin": -99.3,
+    "lonMax": -96.4
+  },
+  {
+    "nombre": "Tlaxcala",
+    "latMin": 19.2,
+    "latMax": 19.5,
+    "lonMin": -98.5,
+    "lonMax": -97.8
+  },
+  {
+    "nombre": "Veracruz",
+    "latMin": 17.0,
+    "latMax": 22.8,
+    "lonMin": -98.7,
+    "lonMax": -93.5
+  },
+  {
+    "nombre": "Yucatán",
+    "latMin": 19.6,
+    "latMax": 21.6,
+    "lonMin": -90.5,
+    "lonMax": -87.4
+  },
+  {
+    "nombre": "Zacatecas",
+    "latMin": 21.2,
+    "latMax": 25.0,
+    "lonMin": -104.9,
+    "lonMax": -100.8
+  }
+]
